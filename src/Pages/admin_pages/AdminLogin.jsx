@@ -26,11 +26,11 @@ function AdminLogin() {
       password: password,
     };
     try {
-      const { data } = await api.post("/user/login", actualData);
+      const { data } = await api.post("/admin/login", actualData);
       localStorage.setItem("UserInfo", JSON.stringify(data.user));
-      // dispatch({type:'UserLoggedIn',payload:data})
+      dispatch({type:'UserLoggedIn',payload:data})
       toast.success("Login SuccessFully");
-      navigate("/");
+      navigate("/admin/dashboard");
     } catch (error) {
       if (
         error.response &&
@@ -39,7 +39,7 @@ function AdminLogin() {
       ) {
         setError(error.response.data.message);
       } else {
-        setError("An error occurred during registration.");
+        setError("An error occurred during login.");
       }
     }
   };
@@ -91,13 +91,7 @@ function AdminLogin() {
                     </a>
                   </div>
                   <div className="p-2">
-                    <p>
-                      If you have not created an account yet, then please
-                      <Link to="/accounts/signup/?next=%2Faccounts%2Fcross-auth%2F">
-                       <br /> sign up
-                      </Link>{" "}
-                      first.
-                    </p>
+                   
                     <form onSubmit={submitHandler}>
                       <input
                         type="hidden"
@@ -192,13 +186,13 @@ function AdminLogin() {
                       </div>
                     </form>
                     <div className="mt-4 text-center">
-                      <a
-                        href="/accounts/password/reset/"
+                      <Link
+                        to="/accounts/password/reset/"
                         className="text-muted"
                       >
                         <i className="mdi mdi-lock mr-1" /> Forgot your
                         password?
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
