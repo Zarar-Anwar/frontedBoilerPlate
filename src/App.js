@@ -1,48 +1,30 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
-import Navbar from './Pages/web_pages/Navbar'
-import Footer from './Pages/web_pages/Footer'
-import PageNotFound from './Pages/web_pages/ErrorsPages/PageNotFound';
-import Home from './Pages/web_pages/Home';
-import ToastContainers from './Services/ToastContainer';
-import Login from './Pages/web_pages/Login';
-import AdminLogin from './Pages/admin_pages/AdminLogin';
-import { useContext } from 'react';
-import { Store } from './Services/Store';
-import Dashboard from './Pages/admin_pages/Dashboard';
+import ToastContainers from "./Utils/ToastContainer";
+import PageNotFound404 from "./Errors/PageNotFound404";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Base from "./Pages/Base";
+import Home from "./Pages/Home";
+
+
 function App() {
-const {state,dispatch}=useContext(Store)
-const {Admin}=state
-console.log(Admin)
   return (
-   <>
-   <BrowserRouter>
-   
-    {/* ToastContainer */}
-    <ToastContainers/>
+    <>
+      <BrowserRouter>
 
-    {/* Navbar */}
-   {Admin?null:<Navbar/>}
+        {/* ToastContainer */}
+        <ToastContainers />
 
-    {/* Routes */}
-   <Routes>
+        {/* Routes */}
+        <Routes>
 
-    {/* Web Routes */}
-   <Route path='/' element={<Home/>} />   
-   <Route path='*' element={<PageNotFound/>} />
+          {/* Web Routes */}
+          <Route path='/' element={<Base><Home/></Base>} />
 
-    {/* User Routes */}
-   <Route path='/user/login' element={<Login/>} />   
+          <Route path='*' element={<PageNotFound404 />} />
 
-    {/* Admin Routes */}
-   <Route path='/admin' element={<AdminLogin/>} />   
-   <Route path='/admin/dashboard' element={<Dashboard/>} />   
+        </Routes>
 
-   </Routes>
-
-   {/* Footer */}
-   {Admin?null:<Footer/>}
       </BrowserRouter>
-   </>
+    </>
   );
 }
 
